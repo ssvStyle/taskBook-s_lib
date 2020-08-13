@@ -27,6 +27,8 @@ abstract class BaseController implements BaseControllerInterfase
             'cache' => 'cache',
             'auto_reload' => true
             ]);
+
+        $this->view->addGlobal('host', require __DIR__.'/../config/host.php');
     }
 
     /**

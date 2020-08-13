@@ -1,0 +1,28 @@
+.header {
+  position: relative;
+}
+
+.header__nav__container {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 50px;
+  & nav {
+    padding-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    & div:last-child a:first-of-type {
+      margin-left: 5px;
+    }
+  }
+  & a {
+    color: black;
+    text-decoration: none;
+    display: inline-flex;
+    &:hover {
+      color: #313100;
+    }
+  }
+  background: linear-gradient(0deg, rgba(231,248,254,1) 0%, rgba(153,145,255,0.9486169467787114) 100%), rgb(231,248,254);
+}

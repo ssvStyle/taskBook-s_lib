@@ -1,28 +1,32 @@
 var gulp = require('gulp'),
     postcss = require('gulp-postcss'),
     autoprefixer = require('autoprefixer'),
+    cleanCSS = require('gulp-clean-css'),
+    sass = require('gulp-sass'),
     rigger = require('gulp-rigger');
 
-gulp.task('myHtml', function () {
-    return gulp.src('src/*.html')
+gulp.task('html', function () {
+    return gulp.src('src/templates/**/*.html')
         .pipe(rigger())
-        .pipe(gulp.dest('app'));
+        .pipe(gulp.dest('templates'));
 });
 
-gulp.task('myCss', function () {
-    return gulp.src('src/css/style.css')
-        .pipe(postcss([autoprefixer]) )
-        .pipe(gulp.dest('app/css'));
+gulp.task('style', function () {
+    return gulp.src('src/scss/style.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(postcss([autoprefixer]))
+        .pipe(cleanCSS())
+        .pipe(gulp.dest('public/css'));
 });
 
 gulp.task('js', function () {
-    return gulp.src('src/js/*')
-        .pipe(gulp.dest('app/js'));
+    return gulp.src('src/js/**/*.js')
+        .pipe(gulp.dest('public/js'));
 });
 
-gulp.task('myImages', function () {
-    return gulp.src('src/images/*/*')
-        .pipe(gulp.dest('app/images'));
+gulp.task('img', function () {
+    return gulp.src('src/images/**/*')
+        .pipe(gulp.dest('public/images'));
 });
 
-gulp.task('myFinalBuild', gulp.series(['myHtml', 'myCss', 'myImages', 'js']));
+gulp.task('build', gulp.series(['html', 'style', 'img', 'js']));

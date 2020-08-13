@@ -11,7 +11,7 @@ class Home extends BaseController
     {
 
         echo $this->view
-            ->render('index.html.twig');
+            ->render('index.html');
 
     }
 
