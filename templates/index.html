@@ -8,14 +8,36 @@
 
 {% block content %}
 <main>
+    <section class="sort">
+    <select name="select">
+        <option value="value1">Значение 1</option>
+        <option value="value2" selected>Значение 2</option>
+        <option value="value3">Значение 3</option>
+    </select>
+    </section>
     <div class="task__block">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi cum eaque ipsa, laborum odio optio perspiciatis possimus quisquam sequi ullam.
+        <div class="wrapper">
+            <p class="task__block-user">simon</p>
+            <p class="task__block-email">ssv@gmail.com</p>
+            <p class="task__block-status">Не выполнено</p>
+        </div>
+        <p class="task__block-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, tempora?</p>
     </div>
     <div class="task__block">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi cum eaque ipsa, laborum odio optio perspiciatis possimus quisquam sequi ullam.
+        <div class="wrapper">
+            <p class="task__block-user">simon</p>
+            <p class="task__block-email">ssv@gmail.com</p>
+            <p class="task__block-status">Не выполнено</p>
+        </div>
+        <p class="task__block-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, tempora?</p>
     </div>
     <div class="task__block">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi cum eaque ipsa, laborum odio optio perspiciatis possimus quisquam sequi ullam.
+        <div class="wrapper">
+            <p class="task__block-user">simon</p>
+            <p class="task__block-email">ssv@gmail.com</p>
+            <p class="task__block-status">Не выполнено</p>
+        </div>
+        <p class="task__block-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, tempora?</p>
     </div>
 </main>
 {% endblock %}

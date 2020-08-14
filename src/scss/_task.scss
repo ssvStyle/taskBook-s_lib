@@ -1,8 +1,33 @@
 .task__block{
-  width: 100%;
+  display: flex;
+  flex-direction: column;
   background: $taskBg;
   padding: 20px;
   border-radius: 12px;
   border-left: 5px solid #ff6300;
-  margin: 5px 0;
+  margin: 15px 0;
+  box-shadow: 1px 2px 4px 1px rgba(168,168,168,1);
+  & p {
+    margin: 0;
+  }
+  &-user{
+    font-weight: 400;
+    display: block;
+    padding-right: 10px;
+  }
+  & .wrapper {
+    display: flex;
+    border-bottom: 1px solid #e1ede4;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    color: #838584;
+  }
+  &-status {
+    width: 100%;
+    text-align: right;
+  }
+  &-content {
+    font-size: 16px;
+    font-weight: 600;
+  }
 }
