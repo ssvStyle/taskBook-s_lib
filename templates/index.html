@@ -8,12 +8,49 @@
 
 {% block content %}
 <main>
-    <section class="sort">
-    <select name="select">
-        <option value="value1">Значение 1</option>
-        <option value="value2" selected>Значение 2</option>
-        <option value="value3">Значение 3</option>
-    </select>
+    <section class="header__nav">
+    <button id="addNewTask"></button>
+        <div class="select__block">
+            <label class="select__block-label">Sort by:
+                <select id="selectSort" class="select__block-list">
+                    <option value="name" selected>Имя</option>
+                    <option value="email">е-mail</option>
+                    <option value="status">Статус</option>
+                </select>
+            </label>
+            <img id="sortBy" src="public/img/icons/sort/sort_desc.png" class="select__block-img" alt="sort">
+        </div>
+    </section>
+    <section id="newTaskBlock" class="new__task">
+        <form action="" method="post" class="add__task">
+            <div class="wrapper">
+                <label for="inputName">Имя:</label>
+                <input type="text" value="" name="name" class="add__task-inputName" id="inputName" placeholder="Name">
+            </div>
+            <div class="wrapper">
+                <label for="inputEmail">Email:</label>
+                <input type="text" value="" name="email" class="add__task-inputEmail" id="inputEmail" placeholder="youremail@gmail.com">
+            </div>
+            <div class="wrapper">
+                <label for="inputTask">Задача:</label><span class="badge badge-pill badge-warning float-right"><?= $error['task'] ?: ''; ?></span>
+                <textarea class="add__task-inputTask" name="task" id="inputTask" rows="3"></textarea>
+            </div>
+        
+            <div class="wrapper">
+                <label>
+                    <input type="radio" checked="checked" name="status" value="Не выполненно"/>
+                    Не выполненно
+                </label>
+                <label>
+                    <input type="radio" name="status" value="Выполнено"/>
+                    Выполнено
+                </label>
+            </div>
+        
+            <input type="hidden" name="id" value="<?= $task->id ?: '' ?>">
+        
+            <button type="submit" class="btn btn-primary">Добавить</button>
+        </form>
     </section>
     <div class="task__block">
         <div class="wrapper">

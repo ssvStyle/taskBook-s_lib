@@ -10,8 +10,6 @@
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
         <!-- Подключаем CSS -->
         <link rel="stylesheet" href="public/css/style.css">
-        <!-- Подключаем JS -->
-        <script src="public/js/script.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@200;400;600;800&display=swap" rel="stylesheet">
         <title>{% block title %}{% endblock %}</title>
     {% endblock %}
@@ -23,7 +21,7 @@
             <div class="header__nav__container">
                 <nav class="container">
                     <div>
-                        <a class="nav-link" href="home">Task Book</a>
+                        <a class="nav-link" href="home"><h1>Task Book</h1></a>
                     </div>
                     <div>
                         <a class="nav-link" href="login">Войти</a>
@@ -36,5 +34,6 @@
         {% block content %}{% endblock %}
     </div>
 </div>
+<script src="public/js/script.js"></script>
 </body>
 </html>

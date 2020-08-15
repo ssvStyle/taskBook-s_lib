@@ -1,0 +1,42 @@
+.new__task {
+  margin: 20px 0;
+  padding: 10px;
+  display: none;
+}
+
+.add__task {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 400px;
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 5px 0;
+    &:last-of-type {
+      flex-direction: column;
+      margin: 10px 0;
+      input {
+        width: unset;
+        margin: 5px 0;
+      }
+    }
+  }
+  input {
+    height: 20px;
+    width: 250px;
+    border: none;
+    border-radius: 5px;
+    &::placeholder {
+      color: #e9f5ec;
+    }
+  }
+  textarea {
+    width: 330px;
+    border: none;
+    border-radius: 5px;
+  }
+
+
+}
