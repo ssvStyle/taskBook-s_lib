@@ -12,13 +12,14 @@
     <button id="addNewTask"></button>
         <div class="select__block">
             <label class="select__block-label">Sort by:
-                <select id="selectSort" class="select__block-list">
-                    <option value="name" selected>Имя</option>
+                <select id="sortBy" class="select__block-list">
+                    <option value="" selected>выберите:</option>
+                    <option value="name">Имя</option>
                     <option value="email">е-mail</option>
                     <option value="status">Статус</option>
                 </select>
             </label>
-            <img id="sortBy" src="public/img/icons/sort/sort_desc.png" class="select__block-img" alt="sort">
+            <a href="page/3/field/name/sort/asc"><img id="sort" src="public/img/icons/sort/sort_desc.png" class="select__block-img" alt="sort"></a>
         </div>
     </section>
     <section id="newTaskBlock" class="new__task">

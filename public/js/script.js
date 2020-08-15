@@ -1,12 +1,23 @@
 window.addEventListener('DOMContentLoaded', () => {
     let newTaskBtn = document.querySelector('#addNewTask'),
         newTaskBlock = document.querySelector('#newTaskBlock'),
+        sort = document.querySelector('#sort'),
         sortBy = document.querySelector('#sortBy'),
-        selectSort = document.querySelector('#selectSort');
+        url = window.location.href;
 
+    if (url.indexOf('sort/asc') > 0) {
+        sort.src = 'public/img/icons/sort/sort_asc.png';
+    }
 
-    console.log(newTaskBlock);
-    console.log(newTaskBtn);
+    if (url.indexOf('field/') > 0) {
+        let opts = sortBy.options;
+        for (let opt, j = 0; opt = opts[j]; j++) {
+            if (opt.value == url.match(/(?<=(field\/))[A-Za-z1-9]*(?<!\/sort)/)[0]) {
+                sortBy.selectedIndex = j;
+                break;
+            }
+        }
+    }
 
     newTaskBtn.addEventListener('click', () => {
         if (newTaskBlock.style.display === 'block') {
@@ -16,16 +27,9 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    selectSort.addEventListener('change', (event) => {
-        console.log(event.target.value);
+    sortBy.addEventListener('change', (event) => {
+        let re = /(?<=(field\/))[A-Za-z1-9]*(?<!\/sort)/;
+        window.location.href = url.replace(re, event.target.value);
     });
 
-    sortBy.addEventListener('click', () => {
-        console.log(sortBy.src.indexOf('public/img/icons/sort/sort.png'));
-        if (sortBy.src === '/public/img/icons/sort/sort_active.png') {
-            sortBy.classList.value = 'select__block-imgUp';
-        } else {
-            sortBy.classList.value = 'select__block-imgDown';
-        }
-    })
 });
