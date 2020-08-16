@@ -7,7 +7,7 @@
         <!-- Настройка viewport -->
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <base href="{{host}}">
-        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="public/img/icons/main/favicon.png" type="image/x-icon">
         <!-- Подключаем CSS -->
         <link rel="stylesheet" href="public/css/style.css">
         <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@200;400;600;800&display=swap" rel="stylesheet">
@@ -25,7 +25,6 @@
                     </div>
                     <div>
                         <a class="nav-link" href="login">Войти</a>
-                        <a class="nav-link" href="register">Регистрация</a>
                     </div>
                 </nav>
             </div>
@@ -34,6 +33,9 @@
         {% block content %}{% endblock %}
     </div>
 </div>
-<script src="public/js/script.js"></script>
+
+{% block script %}
+
+{% endblock %}
 </body>
 </html>

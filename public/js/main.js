@@ -3,7 +3,8 @@ window.addEventListener('DOMContentLoaded', () => {
         newTaskBlock = document.querySelector('#newTaskBlock'),
         sort = document.querySelector('#sort'),
         sortBy = document.querySelector('#sortBy'),
-        url = window.location.href;
+        url = window.location.href,
+        status = document.getElementsByName('status');
 
     if (url.indexOf('sort/asc') > 0) {
         sort.src = 'public/img/icons/sort/sort_asc.png';
@@ -32,4 +33,16 @@ window.addEventListener('DOMContentLoaded', () => {
         window.location.href = url.replace(re, event.target.value);
     });
 
+
+    console.log();
+
+    for (var i = 0; i < status.length; i++) {
+        status[i].onclick = function() {
+            localStorage.setItem('status', this.value);
+        }
+    }
+    if(localStorage.getItem('status')) {
+        let localStatus = localStorage.getItem('status');
+        document.querySelector('input[name="status"][value="' + localStatus + '"]').setAttribute('checked','checked');
+    }
 });

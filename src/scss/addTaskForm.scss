@@ -5,6 +5,7 @@
 }
 
 .add__task {
+  padding: 20px 0;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -31,12 +32,18 @@
     &::placeholder {
       color: #e9f5ec;
     }
+    &[type="checkbox"] {
+      vertical-align: sub;
+    }
   }
   textarea {
     width: 330px;
     border: none;
     border-radius: 5px;
   }
-
+  &-btn {
+    width: 100px;
+    margin: 0 auto;
+  }
 
 }
