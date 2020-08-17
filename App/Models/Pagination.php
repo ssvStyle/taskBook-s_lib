@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Db;
+use App\Models\Db;
 
 class Pagination
 {
@@ -11,11 +11,11 @@ class Pagination
     protected $db;
     protected $page;
 
-    public function __construct(Db $db)
+    public function __construct(Db $db, $table)
     {
         $this->db = new $db;
-        $sql = 'SELECT COUNT(*) FROM tasks';
-        $this->count =  (int)$db->simpleQuery($sql) ["COUNT(*)"];
+        $sql = 'SELECT COUNT(*) FROM ' . $table;
+        $this->count =  (int)$db->query($sql, [])[0];
 
     }
 
@@ -47,7 +47,7 @@ class Pagination
      *
      * @return array|object
      */
-    public function getPageData($page)
+    public function getFromToByPage($page)
     {
         if ($page <= 1) {
 
@@ -66,39 +66,7 @@ class Pagination
             }
         }
 
-        $sql = 'SELECT * FROM tasks LIMIT ' . $start . ', ' . $this->limit;
-
-        return $this->db->query($sql, [] , '\App\Models\Task');
-
-    }
-
-    /**
-     * @param int $page
-     *
-     * @return array|object
-     */
-    public function getPageDataSortBy($page, $sortType, $field)
-    {
-        if ($page <= 1) {
-
-            $start = 0;
-
-        } else {
-
-            $start = 0;
-            $page--;
-
-            while ($page > 0 ) {
-
-                $start += $this->limit;
-                $page--;
-
-            }
-        }
-
-        $sql = 'SELECT * FROM tasks ORDER BY ' . $field . ' ' . $sortType . ' LIMIT ' . $start . ', ' . $this->limit;
-
-        return $this->db->query($sql, [] , '\App\Models\Task');
+        return ['from' => $start, 'to' => $this->limit];
 
     }
 

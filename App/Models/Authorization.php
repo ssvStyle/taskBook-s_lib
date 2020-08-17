@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use \App\Db;
+use \App\Models\Db as db;
 
 class Authorization
 {
@@ -13,13 +13,13 @@ class Authorization
     protected $user;
 
     /**
-     * Authorization constructor.
+     * AuthServise constructor.
      * @param \App\Models\Db $db
      *
      */
     public function __construct(Db $db)
     {
-            $this->db = new $db();
+            $this->db = $db;
 
     }
 
@@ -28,15 +28,15 @@ class Authorization
      * 
      * @return bool
      */
-    public function adminVerify()
+    public function userVerify()
     {
-        $hash = $_SESSION['UserHash'] ?: null;
+        $hash = $_SESSION['UserHash'] ?? false;
 
-        if ($hash !== null) {
+        if ($hash) {
 
-            $sql = 'SELECT * FROM users WHERE hash=\'' . $hash . '\'';
+            $sql = 'SELECT * FROM users WHERE sessionHash=:hash';
 
-            if ($this->db->simpleQuery($sql)) {
+            if ($this->db->query($sql, [':hash' => $hash])) {
 
                 return true;
 
@@ -55,10 +55,12 @@ class Authorization
     public function loginExist($login)
     {
 
-        $sql = 'SELECT * FROM users WHERE login=\'' . $login . '\'';
+        $sql = 'SELECT * FROM users WHERE login=:login';
 
-        if($this->db->simpleQuery($sql)) {
+        if($this->db->query($sql, [':login' => $login])) {
+
             return true;
+
         }
         return false;
         
@@ -75,13 +77,16 @@ class Authorization
     {
         if ($this->loginExist($login)) {
 
-            $sql = 'SELECT * FROM users WHERE login=:login';
-            $data = [':login' => $login];
-            $user = $this->db->query($sql, $data, '\App\Models\User')[0];
+            $sql = 'SELECT users.id, login, pass, sessionHash, usersStatus.status FROM users
+                    LEFT JOIN usersStatus ON users.status_id=usersStatus.id
+                    WHERE login=:login';
+            $user = $this->db->queryRetObj($sql, [':login' => $login], '\App\Models\User')[0] ?? false;
 
-            if ( password_verify($pass, $user->getPass()) ) {
-                $this->user = $user;
-                return true;
+            if ($user) {
+                if ( password_verify($pass, $user->getPass()) ) {
+                    $this->user = $user;
+                    return true;
+                }
             }
 
         }
@@ -93,19 +98,23 @@ class Authorization
     /**
      * @return bool
      */
-    public function setAuth()
+    public function setAuth($cookie = false)
     {
         $hash = sha1(microtime() . rand(0, 1000000000));
 
-        $sql = 'UPDATE users SET hash=:hash WHERE id=\''.$this->user->getId().'\'';
+        $sql = 'UPDATE users SET sessionHash=:hash WHERE id=:id';
 
-        if ($this->db->execute($sql, [':hash'=> $hash])) {
+        if ($this->db->execute($sql, [':hash'=> $hash, ':id' => $this->user->getId()])) {
 
             $_SESSION['UserHash'] = $hash;
+
+            if ($cookie) {
+
+                setcookie("UserHash", $hash, time() + 3600, '/');
+            }
+
             return true;
-
         }
-
     }
 
     /**
@@ -113,13 +122,14 @@ class Authorization
      */
     public function exitAuth()
     {
-        $hash = $_SESSION['UserHash'] ?: null;
+        $hashSession = $_SESSION['UserHash'] ?? null;
 
-        $sql = 'UPDATE users SET hash=:hash WHERE hash=\'' . $hash . '\'';
+        $sql = 'UPDATE users SET sessionHash=:hash WHERE sessionHash=:hashSession';
 
-        if ($this->db->execute($sql, [':hash'=> ''])) {
+        if ($this->db->execute($sql, [':hash'=> '', ':hashSession' => $hashSession])) {
 
             unset($_SESSION['UserHash']);
+            setcookie("UserHash", "", time() - 3600*60, '/');
             session_regenerate_id(true);
             return true;
 

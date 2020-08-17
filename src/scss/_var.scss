@@ -1,8 +1,14 @@
 $bg: radial-gradient(circle, rgba(225,237,228,1) 0%, rgba(251,251,251,0.8029586834733894) 80%), rgb(225,237,228);
 $taskBg: white;
 $gray: #838584;
-body {
+$pagination: #423b34;
+
+@mixin font {
   font-family: 'Epilogue', sans-serif;
+}
+
+body {
+  @include font;
   padding: 0;
   margin: 0;
 }

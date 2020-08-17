@@ -1,8 +1,12 @@
 <div class="task__block">
     <div class="wrapper">
-        <p class="task__block-user">simon</p>
-        <p class="task__block-email">ssv@gmail.com</p>
-        <p class="task__block-status">Не выполнено</p>
+        <p class="task__block-user">{{ task.name }}</p>
+        <p class="task__block-email">{{ task.email }}</p>
+        <p class="task__block-status">{{ task.status }}.
+            {% if task.admin_edit != false %}
+                Отредактировано администратором.
+            {% endif %}
+        </p>
     </div>
-    <p class="task__block-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, tempora?</p>
+    <p class="task__block-content">{{ task.job }}</p>
 </div>

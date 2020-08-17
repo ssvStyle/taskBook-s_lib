@@ -19,7 +19,7 @@
                     <option value="status">Статус</option>
                 </select>
             </label>
-            <a href="page/3/field/name/sort/asc"><img id="sort" src="public/img/icons/sort/sort_desc.png" class="select__block-img" alt="sort"></a>
+            <a href="page/1/field/name/sort/asc"><img id="sort" src="public/img/icons/sort/sort_desc.png" class="select__block-img" alt="sort"></a>
         </div>
     </section>
     <section id="newTaskBlock" class="new__task">
@@ -53,30 +53,57 @@
             <button type="submit" class="add__task-btn">Добавить</button>
         </form>
     </section>
-    <div class="task__block">
-        <div class="wrapper">
-            <p class="task__block-user">simon</p>
-            <p class="task__block-email">ssv@gmail.com</p>
-            <p class="task__block-status">Не выполнено</p>
+    {% for task in tasks %}
+        <div class="task__block">
+            <div class="wrapper">
+                <p class="task__block-user">{{ task.name }}</p>
+                <p class="task__block-email">{{ task.email }}</p>
+                <p class="task__block-status">{{ task.status }}.
+                    {% if task.admin_edit != false %}
+                        Отредактировано администратором.
+                    {% endif %}
+                </p>
+            </div>
+            <p class="task__block-content">{{ task.job }}</p>
         </div>
-        <p class="task__block-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, tempora?</p>
-    </div>
-    <div class="task__block">
-        <div class="wrapper">
-            <p class="task__block-user">simon</p>
-            <p class="task__block-email">ssv@gmail.com</p>
-            <p class="task__block-status">Не выполнено</p>
-        </div>
-        <p class="task__block-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, tempora?</p>
-    </div>
-    <div class="task__block">
-        <div class="wrapper">
-            <p class="task__block-user">simon</p>
-            <p class="task__block-email">ssv@gmail.com</p>
-            <p class="task__block-status">Не выполнено</p>
-        </div>
-        <p class="task__block-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, tempora?</p>
-    </div>
+    {% endfor %}
+    <section class="pagination">
+        <a class="pagination__block" href="">
+            <span class="pagination__block-num">&#60&#60</span>
+        </a>
+        
+        <a class="pagination__block" href="">
+            <span class="pagination__block-num">1</span>
+        </a>
+        
+        <a class="pagination__block" href="">
+            <span class="pagination__block-num">2</span>
+        </a>
+        
+        <span class="pagination__blockNowPage" href="">
+            <span class="pagination__blockNowPage-num">3</span>
+        </span>
+        
+        <a class="pagination__block" href="">
+            <span class="pagination__block-num">4</span>
+        </a>
+        
+        <a class="pagination__block" href="">
+            <span class="pagination__block-num">5</span>
+        </a>
+        
+        <span class="pagination__blockNowPage" href="">
+            <span class="pagination__blockNowPage-num">&#8230</span>
+        </span>
+        
+        <a class="pagination__block" href="">
+            <span class="pagination__block-num">35</span>
+        </a>
+        
+        <a class="pagination__block" href="">
+            <span class="pagination__block-num">&#62&#62</span>
+        </a>
+    </section>
 </main>
 {% endblock %}
 
