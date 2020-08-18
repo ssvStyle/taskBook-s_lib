@@ -17,7 +17,7 @@ class Db
     {
         $sth = $this->dbh->prepare($sql);
         $sth->execute($data);
-        return  $sth->fetchAll();
+        return  $sth->fetchAll(\PDO::FETCH_COLUMN, 0);
     }
 
     public function queryRetObj($sql, $data = [], $class)

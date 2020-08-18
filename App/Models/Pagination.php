@@ -17,6 +17,7 @@ class Pagination
         $sql = 'SELECT COUNT(*) FROM ' . $table;
         $this->count =  (int)$db->query($sql, [])[0];
 
+
     }
 
     /**
@@ -34,11 +35,13 @@ class Pagination
     /**
      * @param int $page
      *
+     * @return object;
      */
     public function setPage($page)
     {
 
         $this->page = $page;
+        return $this;
 
     }
 
@@ -101,6 +104,21 @@ class Pagination
         }
 
         return $this->page + 1;
+
+    }
+
+    /**
+     * @return bool|int
+     *
+     */
+    public function getPrevPage()
+    {
+
+        if (($this->page - 1) <= 0){
+            return false;
+        }
+
+        return $this->page - 1;
 
     }
 

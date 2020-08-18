@@ -9,7 +9,7 @@
 {% block content %}
 <main>
     <section class="header__nav">
-    <button id="addNewTask"></button>
+        <button id="addNewTask"></button>
         //= content/sort.html
     </section>
     <section id="newTaskBlock" class="new__task">
@@ -19,7 +19,42 @@
         //= content/task.html
     {% endfor %}
     <section class="pagination">
-        //= content/pagination.html
+        {% if prevPage %}
+            <a class="pagination__block" href="page/{{ prevPage }}/field/name/sort/asc">
+                <span class="pagination__block-num">&#60&#60</span>
+            </a>
+        {% endif %}
+        {% if curentPage >= 4 %}
+            <a class="pagination__block" href="page/{{ firstPage }}/field/name/sort/asc">
+                <span class="pagination__block-num">{{ firstPage }}</span>
+            </a>
+        {% endif %}
+        {% if curentPage >= 5 %}
+            <span class="pagination__blockNowPage">
+                <span class="pagination__blockNowPage-num">&#8230</span>
+            </span>
+        {% endif %}
+
+        {% for page in from..too %}
+                //= content/pagination.html
+        {% endfor %}
+
+        {% if curentPage + 4 <= lastPage %}
+            <span class="pagination__blockNowPage">
+                <span class="pagination__blockNowPage-num">&#8230</span>
+            </span>
+        {% endif %}
+        {% if curentPage + 3 <= lastPage %}
+            <a class="pagination__block" href="page/{{ lastPage }}/field/name/sort/asc">
+                <span class="pagination__block-num">{{ lastPage }}</span>
+            </a>
+        {% endif %}
+        {% if nextPage %}
+            <a class="pagination__block" href="page/{{ nextPage }}/field/name/sort/asc">
+                <span class="pagination__block-num">&#62&#62</span>
+            </a>
+        {% endif %}
+
     </section>
 </main>
 {% endblock %}
