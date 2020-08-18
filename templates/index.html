@@ -59,7 +59,7 @@
                 <p class="task__block-user">{{ task.name }}</p>
                 <p class="task__block-email">{{ task.email }}</p>
                 <p class="task__block-status">{{ task.status }}.
-                    {% if task.admin_edit != false %}
+                    {% if task.admin_edit %}
                         Отредактировано администратором.
                     {% endif %}
                 </p>

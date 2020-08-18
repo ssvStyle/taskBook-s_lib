@@ -1,33 +1,41 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ssv
- * Date: 10.05.20
- * Time: 16:17
- */
 
 namespace App\Controllers;
 
-
+use App\Servise\Auth;
 use Core\BaseController;
+use App\Models\Authorization as AuthModel;
+use App\Models\Db;
+
 
 class Authorization extends BaseController
 {
 
     public function login()
     {
+
+        $auth = new AuthModel(new Db());
+
+        if ($auth->userVerify()) {
+            header('Location: home');
+        }
         echo $this->view
             ->display('auth/login.html');
     }
 
-    public function register()
+    public function signIn()
     {
-        echo $this->view->display('auth/register.html');
+
+        Auth::set($_POST);
+        header('Location: home');
+
     }
 
-    public function logout()
+    public function unsetSession()
     {
-        echo 'Authorization Controller and method logout';
+        Auth::unsetSession();
+        header('Location: login');
+
     }
 
 }

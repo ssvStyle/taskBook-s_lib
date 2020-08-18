@@ -31,3 +31,13 @@
     font-weight: 600;
   }
 }
+
+.task__blockDone {
+  @extend .task__block;
+  border-left: 5px solid #24ff60;
+}
+
+.task__blockDoneAdminEdit {
+  @extend .task__block;
+  border-left: 5px solid #fff109;
+}

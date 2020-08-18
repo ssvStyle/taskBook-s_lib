@@ -17,4 +17,6 @@ $myApp = new FrontController();
 $myApp->run();
 
 
+var_dump($_SESSION);
+
 

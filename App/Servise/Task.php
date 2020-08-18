@@ -23,7 +23,7 @@ class Task
         //return $db->queryRetObj($sql, [], 'App\Models\Task');
         $from = 1;
         if ( $page - 2 > 0 ) {
-            $from = $page -2;
+            $from = $page - 2;
         }
 
         $too = $page + 2;

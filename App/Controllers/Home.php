@@ -11,11 +11,11 @@ class Home extends BaseController
     public function index()
     {
 
-        $page = $this->data['pageNum'] ?? 1;
+        $pageNum = $this->data['pageNum'] ?? 1;
         $field = $this->data['field'] ?? 'name';
         $sort = $this->data['sort'] ?? 'desc';
 
-        $page = Task::getPage($page);
+        $page = Task::getPage($pageNum);
         $this->view->addGlobal('tasks', $page['tasks']);
         $this->view->addGlobal('numberOfPages', $page['pageNums']);
         $this->view->addGlobal('nextPage', $page['nextPage']);

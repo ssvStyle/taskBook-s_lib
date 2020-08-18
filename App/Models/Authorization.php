@@ -34,7 +34,7 @@ class Authorization
 
         if ($hash) {
 
-            $sql = 'SELECT * FROM users WHERE sessionHash=:hash';
+            $sql = 'SELECT * FROM users WHERE hash=:hash';
 
             if ($this->db->query($sql, [':hash' => $hash])) {
 
@@ -77,7 +77,7 @@ class Authorization
     {
         if ($this->loginExist($login)) {
 
-            $sql = 'SELECT users.id, login, pass, sessionHash, usersStatus.status FROM users
+            $sql = 'SELECT users.id, login, pass, hash, usersStatus.status FROM users
                     LEFT JOIN usersStatus ON users.status_id=usersStatus.id
                     WHERE login=:login';
             $user = $this->db->queryRetObj($sql, [':login' => $login], '\App\Models\User')[0] ?? false;
@@ -102,7 +102,7 @@ class Authorization
     {
         $hash = sha1(microtime() . rand(0, 1000000000));
 
-        $sql = 'UPDATE users SET sessionHash=:hash WHERE id=:id';
+        $sql = 'UPDATE users SET hash=:hash WHERE id=:id';
 
         if ($this->db->execute($sql, [':hash'=> $hash, ':id' => $this->user->getId()])) {
 
@@ -124,7 +124,7 @@ class Authorization
     {
         $hashSession = $_SESSION['UserHash'] ?? null;
 
-        $sql = 'UPDATE users SET sessionHash=:hash WHERE sessionHash=:hashSession';
+        $sql = 'UPDATE users SET hash=:hash WHERE hash=:hashSession';
 
         if ($this->db->execute($sql, [':hash'=> '', ':hashSession' => $hashSession])) {
 

@@ -4,7 +4,9 @@ window.addEventListener('DOMContentLoaded', () => {
         sort = document.querySelector('#sort'),
         sortBy = document.querySelector('#sortBy'),
         url = window.location.href,
-        status = document.getElementsByName('status');
+        status = document.getElementsByName('status'),
+        taskBlockStatus = document.querySelectorAll('.task__block-status');
+
 
     if (url.indexOf('sort/asc') > 0) {
         sort.src = 'public/img/icons/sort/sort_asc.png';
@@ -34,7 +36,21 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    console.log();
+    //console.log(taskBlockStatus[1].parentNode.parentNode);
+
+    function changeTaskStyle() {
+        taskBlockStatus.forEach(function(obj) {
+                if (obj.innerText == 'Не выполнено. Отредактировано администратором.') {
+                    obj.parentNode.parentNode.classList.toggle('task__blockDoneAdminEdit');
+                }
+
+                if (obj.innerText == 'Выполнено.') {
+                    obj.parentNode.parentNode.classList.toggle('task__blockDone');
+                }
+            });
+    }
+
+    changeTaskStyle();
 
     for (var i = 0; i < status.length; i++) {
         status[i].onclick = function() {
