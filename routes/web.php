@@ -27,6 +27,8 @@
 return [
     '/' => 'home@index',
     '/home' => 'home@index',
+    '/page/{pageNum}' => 'home@index',
+    '/page/{pageNum}/field/{field}' => 'home@index',
     '/page/{pageNum}/field/{field}/sort/{sort}' => 'home@index',
     '/register' => 'authorization@register',
     '/login' => 'authorization@login',

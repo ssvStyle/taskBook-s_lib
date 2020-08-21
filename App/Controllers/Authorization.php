@@ -19,13 +19,12 @@ class Authorization extends BaseController
         if ($auth->userVerify()) {
             header('Location: home');
         }
-        echo $this->view
-            ->display('auth/login.html');
+        echo $this->view->display('auth/login.html');
+
     }
 
     public function signIn()
     {
-
         Auth::set($_POST);
         header('Location: home');
 

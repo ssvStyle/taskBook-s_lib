@@ -2,10 +2,10 @@
     <label class="select__block-label">Sort by:
         <select id="sortBy" class="select__block-list">
             <option value="" selected>выберите:</option>
-            <option value="name">Имя</option>
-            <option value="email">е-mail</option>
-            <option value="status">Статус</option>
+            <option value="page/{{ curentPage }}/field/name/sort/{{ sort }}">Имя</option>
+            <option value="page/{{ curentPage }}/field/email/sort/{{ sort }}">е-mail</option>
+            <option value="page/{{ curentPage }}/field/status/sort/{{ sort }}">Статус</option>
         </select>
     </label>
-    <a href="page/1/field/name/sort/asc"><img id="sort" src="public/img/icons/sort/sort_desc.png" class="select__block-img" alt="sort"></a>
+    <a href="page/{{ curentPage }}/{{ url }}"><img id="sort" src="public/img/icons/sort/sort_desc.png" class="select__block-img" alt="sort"></a>
 </div>

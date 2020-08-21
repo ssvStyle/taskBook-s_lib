@@ -31,7 +31,6 @@ abstract class BaseController implements BaseControllerInterfase
             ]);
 
         $auth = new AuthModel(new Db());
-        //var_dump($auth->userVerify());die;
         $this->view->addGlobal('User', $auth->userVerify());
         $this->view->addGlobal('userName', '');
         $this->view->addGlobal('userStatus', '');
@@ -44,6 +43,16 @@ abstract class BaseController implements BaseControllerInterfase
     public function setData(array $data = [])
     {
         $this->data = $data;
+    }
+
+    public function access($bool = false)
+    {
+        if ($bool) {
+            http_response_code(403);
+            exit('Access Denied. You don’t have permission to access for this page <a href="home">Go home</a>');
+        }
+
+        return $this;
     }
 
 }

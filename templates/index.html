@@ -14,12 +14,12 @@
             <label class="select__block-label">Sort by:
                 <select id="sortBy" class="select__block-list">
                     <option value="" selected>выберите:</option>
-                    <option value="name">Имя</option>
-                    <option value="email">е-mail</option>
-                    <option value="status">Статус</option>
+                    <option value="page/{{ curentPage }}/field/name/sort/{{ sort }}">Имя</option>
+                    <option value="page/{{ curentPage }}/field/email/sort/{{ sort }}">е-mail</option>
+                    <option value="page/{{ curentPage }}/field/status/sort/{{ sort }}">Статус</option>
                 </select>
             </label>
-            <a href="page/1/field/name/sort/asc"><img id="sort" src="public/img/icons/sort/sort_desc.png" class="select__block-img" alt="sort"></a>
+            <a href="page/{{ curentPage }}/{{ url }}"><img id="sort" src="public/img/icons/sort/sort_desc.png" class="select__block-img" alt="sort"></a>
         </div>
     </section>
     <section id="newTaskBlock" class="new__task">
@@ -69,12 +69,12 @@
     {% endfor %}
     <section class="pagination">
         {% if prevPage %}
-            <a class="pagination__block" href="page/{{ prevPage }}/field/name/sort/asc">
+            <a class="pagination__block" href="page/{{ prevPage }}/{{ sort }}">
                 <span class="pagination__block-num">&#60&#60</span>
             </a>
         {% endif %}
         {% if curentPage >= 4 %}
-            <a class="pagination__block" href="page/{{ firstPage }}/field/name/sort/asc">
+            <a class="pagination__block" href="page/{{ firstPage }}/{{ sort }}">
                 <span class="pagination__block-num">{{ firstPage }}</span>
             </a>
         {% endif %}
@@ -90,7 +90,7 @@
                         <span class="pagination__blockNowPage-num">{{ page }}</span>
                     </span>
                 {% else %}
-                    <a class="pagination__block" href="page/{{ page }}/field/name/sort/asc">
+                    <a class="pagination__block" href="page/{{ page }}/{{ url }}">
                         <span class="pagination__block-num">{{ page }}</span>
                     </a>
                 {% endif %}
@@ -102,16 +102,15 @@
             </span>
         {% endif %}
         {% if curentPage + 3 <= lastPage %}
-            <a class="pagination__block" href="page/{{ lastPage }}/field/name/sort/asc">
+            <a class="pagination__block" href="page/{{ lastPage }}/{{ sort }}">
                 <span class="pagination__block-num">{{ lastPage }}</span>
             </a>
         {% endif %}
         {% if nextPage %}
-            <a class="pagination__block" href="page/{{ nextPage }}/field/name/sort/asc">
+            <a class="pagination__block" href="page/{{ nextPage }}/{{ sort }}">
                 <span class="pagination__block-num">&#62&#62</span>
             </a>
         {% endif %}
-
     </section>
 </main>
 {% endblock %}

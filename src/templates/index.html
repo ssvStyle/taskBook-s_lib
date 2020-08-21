@@ -20,12 +20,12 @@
     {% endfor %}
     <section class="pagination">
         {% if prevPage %}
-            <a class="pagination__block" href="page/{{ prevPage }}/field/name/sort/asc">
+            <a class="pagination__block" href="page/{{ prevPage }}/{{ sort }}">
                 <span class="pagination__block-num">&#60&#60</span>
             </a>
         {% endif %}
         {% if curentPage >= 4 %}
-            <a class="pagination__block" href="page/{{ firstPage }}/field/name/sort/asc">
+            <a class="pagination__block" href="page/{{ firstPage }}/{{ sort }}">
                 <span class="pagination__block-num">{{ firstPage }}</span>
             </a>
         {% endif %}
@@ -45,16 +45,15 @@
             </span>
         {% endif %}
         {% if curentPage + 3 <= lastPage %}
-            <a class="pagination__block" href="page/{{ lastPage }}/field/name/sort/asc">
+            <a class="pagination__block" href="page/{{ lastPage }}/{{ sort }}">
                 <span class="pagination__block-num">{{ lastPage }}</span>
             </a>
         {% endif %}
         {% if nextPage %}
-            <a class="pagination__block" href="page/{{ nextPage }}/field/name/sort/asc">
+            <a class="pagination__block" href="page/{{ nextPage }}/{{ sort }}">
                 <span class="pagination__block-num">&#62&#62</span>
             </a>
         {% endif %}
-
     </section>
 </main>
 {% endblock %}

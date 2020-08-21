@@ -35,7 +35,7 @@ class FrontController
 
             $controller->setData($response['args']);
 
-            $controller->$methodName();
+            $controller->access()->$methodName();
 
 
         } else {
