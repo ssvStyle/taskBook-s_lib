@@ -7,7 +7,7 @@ use App\Models\Pagination;
 
 class Task
 {
-    public static function getPage($page)
+    public static function getPage($page, $field, $sort)
     {
         $db = new Db();
 
@@ -18,28 +18,30 @@ class Task
         $sql = 'SELECT tasks.id, name, email, job, status.status_name as status, admin_edit 
                 FROM tasks
                 LEFT JOIN status ON tasks.status_id = status.id
-                LIMIT ' . $fromTo['from'] . ', ' . $fromTo['to'];
+                ORDER BY ' . $field . ' ' . $sort . '
+                LIMIT ' . (int)$fromTo['from'] . ', ' . (int)$fromTo['to'];
 
-        //return $db->queryRetObj($sql, [], 'App\Models\Task');
-        $from = 1;
+        $loopPaginfrom = 1;
         if ( $page - 2 > 0 ) {
-            $from = $page - 2;
+            $loopPaginfrom = $page - 2;
         }
 
-        $too = $page + 2;
+        $loopPagintoo = $page + 2;
         if ( $page + 2 >= $pagin->getPageNums() ) {
             $too = $pagin->getPageNums();
         }
 
+        //var_dump($db->queryRetObj($sql, [], 'App\Models\Task'));die;
+
         return [
-            'tasks' => $db->queryRetObj($sql, [], 'App\Models\Task'),
+            'tasks' => $db->queryRetObj($sql, [':from' => (int)$fromTo['from'], ':too' => (int)$fromTo['to'], ':field' => $field, ':sort' => $sort], 'App\Models\Task'),
             'pageNums' => $pagin->getPageNums(),
             'curentPage' => $page,
             'nextPage' => $pagin->getNextPage(),
             'previosPage' => $pagin->getPrevPage(),
             'firstPage' => 1,
-            'from' => $from,
-            'too' => $too,
+            'from' => $loopPaginfrom,
+            'too' => $loopPagintoo,
             'lastPage' => $pagin->getPageNums(),
         ];
 

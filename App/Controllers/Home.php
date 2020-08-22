@@ -14,8 +14,7 @@ class Home extends BaseController
         $pageNum = $this->data['pageNum'] ?? 1;
         $field = $this->data['field'] ?? 'name';
         $sort = $this->data['sort'] ?? 'desc';
-
-        $page = Task::getPage($pageNum);
+        $page = Task::getPage($pageNum, $field, $sort);
 
         $this->view->addGlobal('tasks', $page['tasks']);
         $this->view->addGlobal('numberOfPages', $page['pageNums']);
@@ -28,8 +27,6 @@ class Home extends BaseController
         $this->view->addGlobal('lastPage', $page['lastPage']);
         $this->view->addGlobal('url', 'field/' . $field . '/sort/' . $sort);
         $this->view->addGlobal('sort', $sort);
-
-
 
         echo $this->view
             ->render('index.html');

@@ -22,6 +22,7 @@ class Db
 
     public function queryRetObj($sql, $data = [], $class)
     {
+        //$this->dbh->setAttribute( \PDO::ATTR_EMULATE_PREPARES, false );
         $sth = $this->dbh->prepare($sql);
         $sth->execute($data);
         return  $sth->fetchAll(\PDO::FETCH_CLASS, $class);
