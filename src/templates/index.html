@@ -15,6 +15,10 @@
     <section id="newTaskBlock" class="new__task">
         //= content/add_new_task.html
     </section>
+
+    {{errors}}
+
+
     {% for task in tasks %}
         //= content/task.html
     {% endfor %}

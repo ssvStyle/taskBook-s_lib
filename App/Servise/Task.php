@@ -9,11 +9,18 @@ class Task
 {
     public static function getPage($page, $field, $sort)
     {
+        $data = [];
+        $data['errors'] = false;
         $db = new Db();
 
-        $pagin = new Pagination($db, 'tasks');
-        $fromTo = $pagin->setLimit(3)->setPage($page)->getFromToByPage($page);
+        $pagin = new Pagination($db, 'tasks', 3);
 
+        if ($page > $pagin->getPageNums() || $page == 0) {
+            $page = 1;
+            $data['errors'] = 'Страницы с таким номером не существует';
+        }
+
+        $fromTo = $pagin->setPage($page)->getFromToByPage($page);
 
         $sql = 'SELECT tasks.id, name, email, job, status.status_name as status, admin_edit 
                 FROM tasks
@@ -28,22 +35,22 @@ class Task
 
         $loopPagintoo = $page + 2;
         if ( $page + 2 >= $pagin->getPageNums() ) {
-            $too = $pagin->getPageNums();
+            $loopPagintoo = $pagin->getPageNums();
         }
 
-        //var_dump($db->queryRetObj($sql, [], 'App\Models\Task'));die;
 
-        return [
-            'tasks' => $db->queryRetObj($sql, [':from' => (int)$fromTo['from'], ':too' => (int)$fromTo['to'], ':field' => $field, ':sort' => $sort], 'App\Models\Task'),
-            'pageNums' => $pagin->getPageNums(),
-            'curentPage' => $page,
-            'nextPage' => $pagin->getNextPage(),
-            'previosPage' => $pagin->getPrevPage(),
-            'firstPage' => 1,
-            'from' => $loopPaginfrom,
-            'too' => $loopPagintoo,
-            'lastPage' => $pagin->getPageNums(),
-        ];
+        $data['tasks'] = $db->queryRetObj($sql, [], 'App\Models\Task');
+        $data['pageNums'] = $pagin->getPageNums();
+        $data['curentPage'] = $page;
+        $data['nextPage'] = $pagin->getNextPage();
+        $data['previosPage'] = $pagin->getPrevPage();
+        $data['firstPage'] = 1;
+        $data['from'] = $loopPaginfrom;
+        $data['too'] = $loopPagintoo;
+        $data['lastPage'] = $pagin->getPageNums();
+
+
+        return $data;
 
     }
 

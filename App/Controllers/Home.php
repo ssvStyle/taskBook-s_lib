@@ -12,9 +12,17 @@ class Home extends BaseController
     {
 
         $pageNum = $this->data['pageNum'] ?? 1;
+
         $field = $this->data['field'] ?? 'name';
         $sort = $this->data['sort'] ?? 'desc';
-        $page = Task::getPage($pageNum, $field, $sort);
+        $page = Task::getPage((int)$pageNum, $field, $sort);
+
+        if ($page['errors']) {
+            $this->view->addGlobal('errors', $page['errors']);
+        }
+        $this->view->addGlobal('errors', $page['errors']);
+
+        //var_dump($page['errors']);die;
 
         $this->view->addGlobal('tasks', $page['tasks']);
         $this->view->addGlobal('numberOfPages', $page['pageNums']);

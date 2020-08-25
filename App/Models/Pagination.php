@@ -11,11 +11,12 @@ class Pagination
     protected $db;
     protected $page;
 
-    public function __construct(Db $db, $table)
+    public function __construct(Db $db, $table, $limit)
     {
         $this->db = new $db;
         $sql = 'SELECT COUNT(*) FROM ' . $table;
         $this->count =  (int)$db->query($sql, [])[0];
+        $this->limit = $limit;
 
 
     }
@@ -25,12 +26,12 @@ class Pagination
      *
      * @return object
      */
-    public function setLimit( $limit )
-    {
-        $this->limit = $limit;
-        return $this;
-
-    }
+//    public function setLimit( $limit )
+//    {
+//        $this->limit = $limit;
+//        return $this;
+//
+//    }
 
     /**
      * @param int $page
@@ -52,6 +53,10 @@ class Pagination
      */
     public function getFromToByPage($page)
     {
+        if ($page > $this->getPageNums()) {
+            $page = 1;
+        }
+
         if ($page <= 1) {
 
             $start = 0;
