@@ -7,22 +7,19 @@ window.addEventListener('DOMContentLoaded', () => {
         status = document.getElementsByName('status'),
         taskBlockStatus = document.querySelectorAll('.task__block-status');
 
-
-
-    if (url.indexOf('sort/asc') > 0) {
-        sort.src = 'public/img/icons/sort/sort_asc.png';
-        sort.parentNode.href = url.replace(/asc/, 'desc');
-    }
-
-    if (url.indexOf('sort/desc') > 0) {
+    if (sort.parentNode.href.indexOf('sort/desc') > 0) {
         sort.src = 'public/img/icons/sort/sort_desc.png';
-        sort.parentNode.href = url.replace(/desc/, 'asc');
+        sort.parentNode.href = sort.parentNode.href.replace(/desc/, 'asc');
+    } else {
+        sort.src = 'public/img/icons/sort/sort_asc.png';
+        sort.parentNode.href = sort.parentNode.href.replace(/asc/, 'desc');
     }
 
-    if (url.indexOf('field/') > 0) {
+    if (url.search(/(?!(field\/))[a-zA-Z0-9]*(?=\/sort)/) > 0) {
         let opts = sortBy.options;
         for (let opt, j = 0; opt = opts[j]; j++) {
-            if (opt.value == url) {
+            console.log(url.indexOf(opt.value));
+            if (url.indexOf(opt.value) > 0) {
                 sortBy.selectedIndex = j;
                 break;
             }
@@ -40,9 +37,6 @@ window.addEventListener('DOMContentLoaded', () => {
     sortBy.addEventListener('change', (event) => {
         window.location.href = event.target.value;
     });
-
-
-    //console.log(window.location.href);
 
     function changeTaskStyle() {
         taskBlockStatus.forEach(function(obj) {

@@ -13,17 +13,12 @@
         {% if paginError %}
             <section class="warning">
                 <p>{{paginError}}</p>
-                <p>{{paginError}}</p>
-
-                <p>{{paginError}}</p>
-
             </section>
         {% endif %}
         <div class="select__block">
             <label class="select__block-label">Sort by:
                 <select id="sortBy" class="select__block-list">
-                    <option value="" selected>выберите:</option>
-                    <option value="page/{{ curentPage }}/field/name/sort/{{ sort }}">Имя</option>
+                    <option value="page/{{ curentPage }}/field/name/sort/{{ sort }}" selected>Имя</option>
                     <option value="page/{{ curentPage }}/field/email/sort/{{ sort }}">е-mail</option>
                     <option value="page/{{ curentPage }}/field/status/sort/{{ sort }}">Статус</option>
                 </select>
@@ -62,8 +57,6 @@
             <button type="submit" class="add__task-btn">Добавить</button>
         </form>
     </section>
-
-
     {% for task in tasks %}
         <div class="task__block">
             <div class="wrapper">
