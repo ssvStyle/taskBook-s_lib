@@ -32,7 +32,6 @@ return [
     '/page/{pageNum}/field/{field}/sort/{sort}' => 'home@index',
     '/register' => 'authorization@register',
     '/login' => 'authorization@login',
-    '/signIn' => 'authorization@signIn',
     '/logout' => 'authorization@unsetSession',
 ]
 

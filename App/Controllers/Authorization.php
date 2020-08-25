@@ -20,14 +20,33 @@ class Authorization extends BaseController
             header('Location: home');
         }
 
-        echo $this->view->display('auth/login.html');
+
+        if (empty($_POST)) {
+            echo $this->view->display('auth/login.html');
+        } else {
+            $result = Auth::set($_POST);
+
+            if ($result === true) {
+                header('Location: home');
+            } else {
+                echo $this->view->render('auth/login.html', [
+                    'errors' => $result
+                ]);
+            }
+        }
 
     }
 
     public function signIn()
     {
-        Auth::set($_POST);
-        header('Location: home');
+        //Auth::set($_POST);
+
+        if (Auth::set($_POST) === true) {
+            echo 'ok';
+        } else {
+            header('Location: login');
+        }
+        //header('Location: home');
 
     }
 

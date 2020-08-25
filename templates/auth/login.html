@@ -8,7 +8,14 @@
 
 {% block content %}
 <main>
-    <form action="signIn" method="post" class="add__task">
+    {% if errors %}
+    <section class="error">
+        {% for error in errors %}
+            <p>{{error}}</p>
+        {%endfor%}
+    </section>
+    {% endif %}
+    <form action="" method="post" class="add__task">
         <div class="wrapper">
             <label for="inputLogin">Login:</label>
             <input type="text" value="" name="Login" class="add__task-inputName" id="inputLogin">

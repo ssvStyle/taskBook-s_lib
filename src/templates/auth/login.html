@@ -8,6 +8,13 @@
 
 {% block content %}
 <main>
+    {% if errors %}
+    <section class="error">
+        {% for error in errors %}
+            <p>{{error}}</p>
+        {%endfor%}
+    </section>
+    {% endif %}
     //= content/loginForm.html
 </main>
 {% endblock %}
