@@ -10,6 +10,15 @@
 <main>
     <section class="header__nav">
         <button id="addNewTask"></button>
+        {% if paginError %}
+            <section class="warning">
+                <p>{{paginError}}</p>
+                <p>{{paginError}}</p>
+
+                <p>{{paginError}}</p>
+
+            </section>
+        {% endif %}
         <div class="select__block">
             <label class="select__block-label">Sort by:
                 <select id="sortBy" class="select__block-list">
@@ -54,7 +63,7 @@
         </form>
     </section>
 
-    {{errors}}
+
     {% for task in tasks %}
         <div class="task__block">
             <div class="wrapper">

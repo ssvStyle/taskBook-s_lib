@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Servise;
+namespace App\Service;
 use App\Models\Db;
 use App\Models\Pagination;
 
@@ -10,14 +10,14 @@ class Task
     public static function getPage($page, $field, $sort)
     {
         $data = [];
-        $data['errors'] = false;
+        $data['errors'] = [];
         $db = new Db();
 
         $pagin = new Pagination($db, 'tasks', 3);
 
         if ($page > $pagin->getPageNums() || $page == 0) {
             $page = 1;
-            $data['errors'] = 'Страницы с таким номером не существует';
+            $data['errors']['paginError'] = 'Страницы с таким номером не существует!';
         }
 
         $fromTo = $pagin->setPage($page)->getFromToByPage($page);
@@ -48,7 +48,6 @@ class Task
         $data['from'] = $loopPaginfrom;
         $data['too'] = $loopPagintoo;
         $data['lastPage'] = $pagin->getPageNums();
-
 
         return $data;
 

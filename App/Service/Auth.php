@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Servise;
+namespace App\Service;
 
 use App\Models\Authorization;
 use App\Models\Db;

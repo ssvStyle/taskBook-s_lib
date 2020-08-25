@@ -10,13 +10,16 @@
 <main>
     <section class="header__nav">
         <button id="addNewTask"></button>
+        {% if paginError %}
+            <section class="warning">
+                <p>{{paginError}}</p>
+            </section>
+        {% endif %}
         //= content/sort.html
     </section>
     <section id="newTaskBlock" class="new__task">
         //= content/add_new_task.html
     </section>
-
-    {{errors}}
 
 
     {% for task in tasks %}

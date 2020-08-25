@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Servise\Auth;
+use App\Service\Auth;
 use Core\BaseController;
 use App\Models\Authorization as AuthModel;
 use App\Models\Db;
@@ -19,6 +19,7 @@ class Authorization extends BaseController
         if ($auth->userVerify()) {
             header('Location: home');
         }
+
         echo $this->view->display('auth/login.html');
 
     }

@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Servise\Task;
+use App\Service\Task;
 use Core\BaseController;
 
 class Home extends BaseController
@@ -17,27 +17,21 @@ class Home extends BaseController
         $sort = $this->data['sort'] ?? 'desc';
         $page = Task::getPage((int)$pageNum, $field, $sort);
 
-        if ($page['errors']) {
-            $this->view->addGlobal('errors', $page['errors']);
-        }
-        $this->view->addGlobal('errors', $page['errors']);
-
-        //var_dump($page['errors']);die;
-
-        $this->view->addGlobal('tasks', $page['tasks']);
-        $this->view->addGlobal('numberOfPages', $page['pageNums']);
-        $this->view->addGlobal('nextPage', $page['nextPage']);
-        $this->view->addGlobal('curentPage', $page['curentPage']);
-        $this->view->addGlobal('prevPage', $page['previosPage']);
-        $this->view->addGlobal('firstPage', 1);
-        $this->view->addGlobal('from', $page['from']);
-        $this->view->addGlobal('too', $page['too']);
-        $this->view->addGlobal('lastPage', $page['lastPage']);
-        $this->view->addGlobal('url', 'field/' . $field . '/sort/' . $sort);
-        $this->view->addGlobal('sort', $sort);
-
         echo $this->view
-            ->render('index.html');
+            ->render('index.html', [
+                'paginError' => $page['errors']['paginError'] ?? '',
+                'tasks' => $page['tasks'],
+                'numberOfPages' => $page['pageNums'],
+                'nextPage' => $page['nextPage'],
+                'curentPage' => $page['curentPage'],
+                'prevPage' => $page['previosPage'],
+                'firstPage' => 1,
+                'from' => $page['from'],
+                'too' => $page['too'],
+                'lastPage' => $page['lastPage'],
+                'url' => 'field/' . $field . '/sort/' . $sort,
+                'sort' => $sort,
+            ]);
 
     }
 

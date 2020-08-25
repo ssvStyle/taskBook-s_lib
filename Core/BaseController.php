@@ -32,7 +32,7 @@ abstract class BaseController implements BaseControllerInterfase
 
         $auth = new AuthModel(new Db());
         $this->view->addGlobal('User', $auth->userVerify());
-        $this->view->addGlobal('userName', '');
+        $this->view->addGlobal('userName', $auth->userName());
         $this->view->addGlobal('userStatus', '');
         $this->view->addGlobal('host', require __DIR__.'/../config/host.php');
     }

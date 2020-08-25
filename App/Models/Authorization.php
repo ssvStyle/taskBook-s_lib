@@ -48,6 +48,29 @@ class Authorization
     }
 
     /**
+     *
+     * @return bool|string
+     */
+    public function userName()
+    {
+        $hash = $_SESSION['UserHash'] ?? false;
+
+        if ($hash) {
+
+            $sql = 'SELECT name FROM users WHERE hash=:hash';
+
+            if ($this->userVerify()) {
+
+                return $this->db->query($sql, [':hash' => $hash])[0];
+
+            }
+        }
+
+        return false;
+
+    }
+
+    /**
      * @param $login
      * 
      * @return bool
