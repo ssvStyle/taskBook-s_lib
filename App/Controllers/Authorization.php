@@ -20,40 +20,26 @@ class Authorization extends BaseController
             header('Location: home');
         }
 
-
         if (empty($_POST)) {
             echo $this->view->display('auth/login.html');
         } else {
             $result = Auth::set($_POST);
-
             if ($result === true) {
                 header('Location: home');
             } else {
                 echo $this->view->render('auth/login.html', [
-                    'errors' => $result
+                    'errors' => $result,
+                    'login' => $_POST['Login'] ?? '',
                 ]);
             }
         }
 
     }
 
-    public function signIn()
-    {
-        //Auth::set($_POST);
-
-        if (Auth::set($_POST) === true) {
-            echo 'ok';
-        } else {
-            header('Location: login');
-        }
-        //header('Location: home');
-
-    }
-
     public function unsetSession()
     {
         Auth::unsetSession();
-        header('Location: login');
+        header('Location: home');
 
     }
 

@@ -27,17 +27,7 @@
       margin-left: 20px;
     }
   }
-  button {
-    border: none;
-    background-image: url('../img/icons/task/add_list.png');
-    background-position: center;
-    background-size: cover;
-    display: inline-block;
-    padding: 20px;
+  .addNewTask {
     width: 35px;
-    height: 35px;
-    cursor: pointer;
-    outline: none;
-    border-radius: 5px;
   }
 }

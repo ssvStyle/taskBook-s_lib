@@ -4,7 +4,6 @@ window.addEventListener('DOMContentLoaded', () => {
         sort = document.querySelector('#sort'),
         sortBy = document.querySelector('#sortBy'),
         url = window.location.href,
-        status = document.getElementsByName('status'),
         taskBlockStatus = document.querySelectorAll('.task__block-status');
 
     if (sort.parentNode.href.indexOf('sort/desc') > 0) {
@@ -51,14 +50,4 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     changeTaskStyle();
-
-    for (var i = 0; i < status.length; i++) {
-        status[i].onclick = function() {
-            localStorage.setItem('status', this.value);
-        }
-    }
-    if(localStorage.getItem('status')) {
-        let localStatus = localStorage.getItem('status');
-        document.querySelector('input[name="status"][value="' + localStatus + '"]').setAttribute('checked','checked');
-    }
 });

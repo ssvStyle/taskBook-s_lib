@@ -1,0 +1,19 @@
+{% extends "main/base.html" %}
+
+{% block title %}Task book{% endblock %}
+
+{% block head %}
+{{ parent() }}
+{% endblock %}
+
+{% block content %}
+<main>
+    <section id="newTaskBlock" class="new__task">
+        //= content/add_new_task.html
+    </section>
+</main>
+{% endblock %}
+
+{% block script %}
+<script src="public/js/task.js"></script>
+{% endblock %}

@@ -1,15 +1,15 @@
 <form action="" method="post" class="add__task">
     <div class="wrapper">
         <label for="inputName">Имя:</label>
-        <input type="text" value="" name="name" class="add__task-inputName" id="inputName" placeholder="Name">
+        <input type="text" value="{{name}}" name="name" class="add__task-inputName" id="inputName" placeholder="Name">
     </div>
     <div class="wrapper">
         <label for="inputEmail">Email:</label>
-        <input type="text" value="" name="email" class="add__task-inputEmail" id="inputEmail" placeholder="youremail@gmail.com">
+        <input type="text" value="{{email}}" name="email" class="add__task-inputEmail" id="inputEmail" placeholder="youremail@gmail.com">
     </div>
     <div class="wrapper">
         <label for="inputTask">Задача:</label><span class="badge badge-pill badge-warning float-right"><?= $error['task'] ?: ''; ?></span>
-        <textarea class="add__task-inputTask" name="task" id="inputTask" rows="3"></textarea>
+        <textarea class="add__task-inputTask" name="task" id="inputTask" rows="3">{{task}}</textarea>
     </div>
 
     <div class="wrapper">

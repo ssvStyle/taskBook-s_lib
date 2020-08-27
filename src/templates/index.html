@@ -9,16 +9,13 @@
 {% block content %}
 <main>
     <section class="header__nav">
-        <button id="addNewTask"></button>
+        <a href="task/add"><img src="public/img/icons/task/add.png" class="addNewTask"></a>
         {% if paginError %}
             <section class="warning">
                 <p>{{paginError}}</p>
             </section>
         {% endif %}
         //= content/sort.html
-    </section>
-    <section id="newTaskBlock" class="new__task">
-        //= content/add_new_task.html
     </section>
     {% for task in tasks %}
         //= content/task.html

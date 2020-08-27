@@ -9,7 +9,7 @@
 {% block content %}
 <main>
     <section class="header__nav">
-        <button id="addNewTask"></button>
+        <a href="task/add"><img src="public/img/icons/task/add.png" class="addNewTask"></a>
         {% if paginError %}
             <section class="warning">
                 <p>{{paginError}}</p>
@@ -26,40 +26,12 @@
             <a href="page/{{ curentPage }}/{{ url }}"><img id="sort" src="public/img/icons/sort/sort_desc.png" class="select__block-img" alt="sort"></a>
         </div>
     </section>
-    <section id="newTaskBlock" class="new__task">
-        <form action="" method="post" class="add__task">
-            <div class="wrapper">
-                <label for="inputName">Имя:</label>
-                <input type="text" value="" name="name" class="add__task-inputName" id="inputName" placeholder="Name">
-            </div>
-            <div class="wrapper">
-                <label for="inputEmail">Email:</label>
-                <input type="text" value="" name="email" class="add__task-inputEmail" id="inputEmail" placeholder="youremail@gmail.com">
-            </div>
-            <div class="wrapper">
-                <label for="inputTask">Задача:</label><span class="badge badge-pill badge-warning float-right"><?= $error['task'] ?: ''; ?></span>
-                <textarea class="add__task-inputTask" name="task" id="inputTask" rows="3"></textarea>
-            </div>
-        
-            <div class="wrapper">
-                <label>
-                    <input type="radio" checked="checked" name="status" value="Не выполненно"/>
-                    Не выполненно
-                </label>
-                <label>
-                    <input type="radio" name="status" value="Выполнено"/>
-                    Выполнено
-                </label>
-            </div>
-        
-            <input type="hidden" name="id" value="<?= $task->id ?: '' ?>">
-        
-            <button type="submit" class="add__task-btn">Добавить</button>
-        </form>
-    </section>
     {% for task in tasks %}
         <div class="task__block">
             <div class="wrapper">
+                {% if User %}
+                    <a href="task/edit/{{ task.id }}"><img src="public/img/icons/task/edit.png" class="task__block-edit"></a>
+                {% endif %}
                 <p class="task__block-user">{{ task.name }}</p>
                 <p class="task__block-email">{{ task.email }}</p>
                 <p class="task__block-status">{{ task.status }}.

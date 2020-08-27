@@ -1,5 +1,8 @@
 <div class="task__block">
     <div class="wrapper">
+        {% if User %}
+            <a href="task/edit/{{ task.id }}"><img src="public/img/icons/task/edit.png" class="task__block-edit"></a>
+        {% endif %}
         <p class="task__block-user">{{ task.name }}</p>
         <p class="task__block-email">{{ task.email }}</p>
         <p class="task__block-status">{{ task.status }}.
