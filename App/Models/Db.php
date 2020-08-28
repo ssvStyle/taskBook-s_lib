@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 class Db
 {
     protected $dbh;
@@ -13,27 +12,45 @@ class Db
         $this->dbh = new \PDO('mysql:host=' . $config['host'] . ';dbname=' . $config['dbname'].';charset=utf8', $config['user'], $config['pass']);
     }
 
+    /**
+     * @param $sql
+     * @param array $data
+     * @return array
+     */
     public function query($sql, $data = [])
     {
         $sth = $this->dbh->prepare($sql);
         $sth->execute($data);
-        return  $sth->fetchAll(\PDO::FETCH_COLUMN, 0);
+        return  $sth->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param $sql
+     * @param array $data
+     * @param $class
+     * @return array
+     */
     public function queryRetObj($sql, $data = [], $class)
     {
-        //$this->dbh->setAttribute( \PDO::ATTR_EMULATE_PREPARES, false );
         $sth = $this->dbh->prepare($sql);
         $sth->execute($data);
         return  $sth->fetchAll(\PDO::FETCH_CLASS, $class);
     }
 
+    /**
+     * @param $sql
+     * @param array $data
+     * @return bool
+     */
     public function execute($sql, $data = [])
     {
         $sth = $this->dbh->prepare($sql);
         return $sth->execute($data);
     }
 
+    /**
+     * @return string
+     */
     public function getLastInsertId()
     {
         return $this->dbh->lastInsertId();

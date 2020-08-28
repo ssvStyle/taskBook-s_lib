@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Model;
+use Core\Model;
 
 class Task extends Model
 {
     const TABLE = 'tasks';
 
-    public $name, $email, $job, $status;
+    public $name, $email, $job, $status_id, $admin_edit;
 
 }

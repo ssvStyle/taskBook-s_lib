@@ -13,7 +13,7 @@ class Authorization
     protected $user;
 
     /**
-     * AuthServise constructor.
+     * Auth constructor.
      * @param \App\Models\Db $db
      *
      */
@@ -35,7 +35,6 @@ class Authorization
         if ($hash) {
 
             $sql = 'SELECT * FROM users WHERE hash=:hash';
-
             if ($this->db->query($sql, [':hash' => $hash])) {
 
                 return true;
@@ -60,8 +59,7 @@ class Authorization
             $sql = 'SELECT name FROM users WHERE hash=:hash';
 
             if ($this->userVerify()) {
-
-                return $this->db->query($sql, [':hash' => $hash])[0];
+                return $this->db->query($sql, [':hash' => $hash])[0]['name'];
 
             }
         }

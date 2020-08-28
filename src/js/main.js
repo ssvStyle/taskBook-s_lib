@@ -1,7 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
-    let newTaskBtn = document.querySelector('#addNewTask'),
-        newTaskBlock = document.querySelector('#newTaskBlock'),
-        sort = document.querySelector('#sort'),
+    let sort = document.querySelector('#sort'),
         sortBy = document.querySelector('#sortBy'),
         url = window.location.href,
         taskBlockStatus = document.querySelectorAll('.task__block-status');
@@ -17,21 +15,12 @@ window.addEventListener('DOMContentLoaded', () => {
     if (url.search(/(?!(field\/))[a-zA-Z0-9]*(?=\/sort)/) > 0) {
         let opts = sortBy.options;
         for (let opt, j = 0; opt = opts[j]; j++) {
-            console.log(url.indexOf(opt.value));
             if (url.indexOf(opt.value) > 0) {
                 sortBy.selectedIndex = j;
                 break;
             }
         }
     }
-
-    newTaskBtn.addEventListener('click', () => {
-        if (newTaskBlock.style.display === 'block') {
-            newTaskBlock.style.display = 'none';
-        } else {
-            newTaskBlock.style.display = 'block';
-        }
-    });
 
     sortBy.addEventListener('change', (event) => {
         window.location.href = event.target.value;

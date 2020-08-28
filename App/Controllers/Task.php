@@ -1,28 +1,55 @@
 <?php
 namespace App\Controllers;
 use Core\BaseController;
+use App\Models\Db;
 
 class Task extends BaseController
 {
     /**
-     * @return view
+     *
      */
     public function add()
     {
-        var_dump($_POST);
+        $task = new \App\Models\Task();
+
+        $task->name = $_POST['name'] ?? '';
+        $task->email = $_POST['email'] ?? '';
+        $task->job = $_POST['job'] ?? '';
+        $task->status_id = $_POST['status'] ?? '';
+        $task->admin_edit = 0;
+
+        //$task->save();
+
+        $db = new Db();
+        $sql = 'SELECT * FROM status';
+        //echo '<pre>';
+        //var_dump($db->query($sql, []));
+        //echo '<pre>';
+        //die;
         echo $this->view->display('addNewTask.html', [
-            'name' => 'ssv',
-            'email' => 'ssv@gmail.ua',
-            'task' => 'Многие думают, что Lorem Ipsum - взятый с потолка псевдо-латинский набор слов, но это не совсем так. Его корни уходят в один фрагмент классической латыни 45 года н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, профессор латыни из колледжа Hampden-Sydney, штат Вирджиния, взял одно из самых странных слов в Lorem Ipsum, "consectetur", и занялся его поисками в классической латинской литературе. В результате он нашёл неоспоримый первоисточник'
+            'task' => $task,
+            'statuses' => $db->query($sql, []),
         ]);
     }
 
     /**
-     * @param mixed $data
+     *
      */
     public function edit()
     {
-        echo $this->view->display('addNewTask.html');
+        var_dump($_POST);
+        $db = new Db();
+        $sql = 'SELECT tasks.id, name, email, job, status.status_name as status, admin_edit 
+                FROM tasks
+                LEFT JOIN status ON tasks.status_id = status.id
+                WHERE tasks.id = :id';
+
+        $auth = new \App\Models\Authorization($db);
+        //var_dump($db->queryRetObj($sql, [':id' => (int)$this->data['id']], 'App\Models\Task')[0]);die;
+        $this->access($auth->userVerify());
+        echo $this->view->display('addNewTask.html', [
+            'task' => $db->queryRetObj($sql, [':id' => (int)$this->data['id']], 'App\Models\Task')[0],
+        ]);
     }
 
 }

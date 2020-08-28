@@ -15,23 +15,11 @@ class Pagination
     {
         $this->db = new $db;
         $sql = 'SELECT COUNT(*) FROM ' . $table;
-        $this->count =  (int)$db->query($sql, [])[0];
+        $this->count = (int)$db->query($sql, [])[0]['COUNT(*)'];
         $this->limit = $limit;
 
 
     }
-
-    /**
-     * @param int $limit
-     *
-     * @return object
-     */
-//    public function setLimit( $limit )
-//    {
-//        $this->limit = $limit;
-//        return $this;
-//
-//    }
 
     /**
      * @param int $page

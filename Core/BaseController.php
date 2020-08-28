@@ -33,7 +33,6 @@ abstract class BaseController implements BaseControllerInterfase
         $auth = new AuthModel(new Db());
         $this->view->addGlobal('User', $auth->userVerify());
         $this->view->addGlobal('userName', $auth->userName());
-        $this->view->addGlobal('userStatus', '');
         $this->view->addGlobal('host', require __DIR__.'/../config/host.php');
     }
 
@@ -45,11 +44,11 @@ abstract class BaseController implements BaseControllerInterfase
         $this->data = $data;
     }
 
-    public function access($bool = false)
+    public function access($bool = true)
     {
-        if ($bool) {
-            http_response_code(403);
-            exit('Access Denied. You don’t have permission to access for this page <a href="home">Go home</a>');
+        if (!$bool) {
+            http_response_code(401);
+            exit('Access Denied. You don’t have permission to access for this page <a href="/taskBook-s_lib/login">Login</a>');
         }
 
         return $this;
