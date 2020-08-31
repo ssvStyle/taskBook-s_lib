@@ -2,6 +2,7 @@
 
 namespace App\Service;
 use App\Models\Db;
+use App\Models\Task as TaskModel;
 use App\Models\Pagination;
 
 
@@ -59,11 +60,12 @@ class Task
         $saveStatus = false;
 
         $task = new \App\Models\Task();
-
+        $task->id = $post['id'] ?? '';
         $task->name = $post['name'] ?? '';
         $task->email = $post['email'] ?? '';
         $task->job = $post['job'] ?? '';
         $task->status_id = $post['status'] ?? '';
+
         $task->admin_edit = 0;
 
 
@@ -79,8 +81,22 @@ class Task
         if (!$taskValid->fieldJob()) {
             $errors['job'] = 'Пустое или слишком поле Задача';
         }
+
+
+
         if (empty($errors)) {
-                $saveStatus = $task->save();
+            if (!empty($task->id)) {
+                $taskModel = new TaskModel();
+                $oldTask = $taskModel::findById((int)$task->id);
+
+                $cond = ($task->name != $oldTask['name'] || $task->email != $oldTask['email'] || $task->job != $oldTask['job'] || $task->status_id != $oldTask['status_id']);
+
+                if ($cond) {
+                    $task->admin_edit = true;
+                }
+            }
+
+            $saveStatus = $task->save();
         }
 
         return ['task' => $task, 'errors' => $errors, 'saveStatus' => $saveStatus];
@@ -94,6 +110,17 @@ class Task
         $sql = 'SELECT * FROM status';
 
         return $db->query($sql, []);
+    }
+
+    public static function getTask(int $id)
+    {
+        $db = new Db();
+        $sql = 'SELECT tasks.id, name, email, job, status.status_name as status, admin_edit 
+                FROM tasks
+                LEFT JOIN status ON tasks.status_id = status.id
+                WHERE tasks.id = :id';
+
+        return $db->queryRetObj($sql, ['id' => $id],'App\Models\Task');
     }
 
 }

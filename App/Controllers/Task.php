@@ -15,17 +15,16 @@ class Task extends BaseController
         if ($_POST) {
             $data = ServiceTask::add($_POST);
 
+            if ($data['saveStatus']) {
+                $_SESSION['saveStatus'] = 'Задача добавленна';
+                header('Location: /taskBook-s_lib');
+            }
+
             echo $this->view->display('addNewTask.html', [
                 'task' => $data['task'],
                 'statuses' => ServiceTask::getStatus(),
                 'errors' => $data['errors'],
             ]);
-
-
-            if ($data['saveStatus']) {
-                $_SESSION['saveStatus'] = 'Задача добавленна';
-                header('Location: /taskBook-s_lib');
-            }
 
         } else {
             echo $this->view->display('addNewTask.html', [
@@ -40,19 +39,34 @@ class Task extends BaseController
      */
     public function edit()
     {
-        //var_dump($_POST);
-        $db = new Db();
-        $sql = 'SELECT tasks.id, name, email, job, status.status_name as status, admin_edit 
-                FROM tasks
-                LEFT JOIN status ON tasks.status_id = status.id
-                WHERE tasks.id = :id';
 
-        $auth = new \App\Models\Authorization($db);
-        //var_dump($db->queryRetObj($sql, [':id' => (int)$this->data['id']], 'App\Models\Task')[0]);die;
+        $auth = new \App\Models\Authorization(new Db());
         $this->access($auth->userVerify());
-        echo $this->view->display('addNewTask.html', [
-            'task' => $db->queryRetObj($sql, [':id' => (int)$this->data['id']], 'App\Models\Task')[0],
-        ]);
+
+        if ($_POST) {
+            $data = ServiceTask::add($_POST);
+
+            if ($data['saveStatus']) {
+                $_SESSION['saveStatus'] = 'Задача отредактирована';
+                header('Location: /taskBook-s_lib');
+            }
+
+
+            echo $this->view->display('addNewTask.html', [
+                'task' => $data['task'],
+                'statuses' => ServiceTask::getStatus(),
+                'errors' => $data['errors'],
+            ]);
+
+
+        } else {
+            echo $this->view->display('addNewTask.html', [
+                'task' => ServiceTask::getTask((int)$this->data['id'])[0],
+                'statuses' => ServiceTask::getStatus(),
+            ]);
+        }
+
+
     }
 
 }
