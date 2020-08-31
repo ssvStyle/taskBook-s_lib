@@ -2,34 +2,37 @@
 namespace App\Controllers;
 use Core\BaseController;
 use App\Models\Db;
+use App\Service\Task as ServiceTask;
 
 class Task extends BaseController
 {
     /**
      *
+     *
      */
     public function add()
     {
-        $task = new \App\Models\Task();
+        if ($_POST) {
+            $data = ServiceTask::add($_POST);
 
-        $task->name = $_POST['name'] ?? '';
-        $task->email = $_POST['email'] ?? '';
-        $task->job = $_POST['job'] ?? '';
-        $task->status_id = $_POST['status'] ?? '';
-        $task->admin_edit = 0;
+            echo $this->view->display('addNewTask.html', [
+                'task' => $data['task'],
+                'statuses' => ServiceTask::getStatus(),
+                'errors' => $data['errors'],
+            ]);
 
-        //$task->save();
 
-        $db = new Db();
-        $sql = 'SELECT * FROM status';
-        //echo '<pre>';
-        //var_dump($db->query($sql, []));
-        //echo '<pre>';
-        //die;
-        echo $this->view->display('addNewTask.html', [
-            'task' => $task,
-            'statuses' => $db->query($sql, []),
-        ]);
+            if ($data['saveStatus']) {
+                $_SESSION['saveStatus'] = 'Задача добавленна';
+                header('Location: /taskBook-s_lib');
+            }
+
+        } else {
+            echo $this->view->display('addNewTask.html', [
+                'statuses' => ServiceTask::getStatus(),
+            ]);
+        }
+
     }
 
     /**
@@ -37,7 +40,7 @@ class Task extends BaseController
      */
     public function edit()
     {
-        var_dump($_POST);
+        //var_dump($_POST);
         $db = new Db();
         $sql = 'SELECT tasks.id, name, email, job, status.status_name as status, admin_edit 
                 FROM tasks

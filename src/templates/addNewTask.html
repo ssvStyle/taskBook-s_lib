@@ -8,6 +8,15 @@
 
 {% block content %}
 <main>
+    {% if errors %}
+        {% for error in errors %}
+            <section class="error">
+                <p>{{error}}</p>
+            </section>
+        {%endfor%}
+    {%endif%}
+
+
     <section id="newTaskBlock" class="new__task">
         //= content/add_new_task.html
     </section>

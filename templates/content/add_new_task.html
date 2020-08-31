@@ -15,7 +15,6 @@
     <div class="wrapper">
 
         {% for status in statuses %}
-
             {% if status.id == 1 %}
                 <label>
                     <input type="radio" checked="checked" name="status" value="{{status.id}}"/>
@@ -27,7 +26,6 @@
                     {{status.status_name}}
                 </label>
             {% endif %}
-
         {% endfor %}
     </div>
 

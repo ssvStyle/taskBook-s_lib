@@ -8,6 +8,15 @@
 
 {% block content %}
 <main>
+    {% if errors %}
+        {% for error in errors %}
+            <section class="error">
+                <p>{{error}}</p>
+            </section>
+        {%endfor%}
+    {%endif%}
+
+
     <section id="newTaskBlock" class="new__task">
         <form action="" method="post" class="add__task">
             <div class="wrapper">
@@ -26,7 +35,6 @@
             <div class="wrapper">
         
                 {% for status in statuses %}
-        
                     {% if status.id == 1 %}
                         <label>
                             <input type="radio" checked="checked" name="status" value="{{status.id}}"/>
@@ -38,7 +46,6 @@
                             {{status.status_name}}
                         </label>
                     {% endif %}
-        
                 {% endfor %}
             </div>
         

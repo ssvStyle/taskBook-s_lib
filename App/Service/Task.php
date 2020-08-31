@@ -53,4 +53,47 @@ class Task
 
     }
 
+    public static function add($post)
+    {
+        $errors = [];
+        $saveStatus = false;
+
+        $task = new \App\Models\Task();
+
+        $task->name = $post['name'] ?? '';
+        $task->email = $post['email'] ?? '';
+        $task->job = $post['job'] ?? '';
+        $task->status_id = $post['status'] ?? '';
+        $task->admin_edit = 0;
+
+
+        $taskValid = new TaskValid($task);
+        if (!$taskValid->fieldName()) {
+            $errors['name'] = 'Пустое или слишком поле Имя';
+        }
+
+        if (!$taskValid->fieldEmail()) {
+            $errors['email'] = 'Пустое поле или некорректный Email';
+        }
+
+        if (!$taskValid->fieldJob()) {
+            $errors['job'] = 'Пустое или слишком поле Задача';
+        }
+        if (empty($errors)) {
+                $saveStatus = $task->save();
+        }
+
+        return ['task' => $task, 'errors' => $errors, 'saveStatus' => $saveStatus];
+
+    }
+
+    public static function getStatus()
+    {
+        $db = new Db();
+
+        $sql = 'SELECT * FROM status';
+
+        return $db->query($sql, []);
+    }
+
 }

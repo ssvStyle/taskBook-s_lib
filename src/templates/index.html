@@ -17,6 +17,13 @@
         {% endif %}
         //= content/sort.html
     </section>
+
+    {% if saveStatus %}
+        <section class="primary">
+            <p>{{saveStatus}}</p>
+        </section>
+    {%endif%}
+
     {% for task in tasks %}
         //= content/task.html
     {% endfor %}

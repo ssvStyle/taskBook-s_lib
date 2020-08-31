@@ -26,6 +26,13 @@
             <a href="page/{{ curentPage }}/{{ url }}"><img id="sort" src="public/img/icons/sort/sort_desc.png" class="select__block-img" alt="sort"></a>
         </div>
     </section>
+
+    {% if saveStatus %}
+        <section class="primary">
+            <p>{{saveStatus}}</p>
+        </section>
+    {%endif%}
+
     {% for task in tasks %}
         <div class="task__block">
             <div class="wrapper">

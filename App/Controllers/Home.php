@@ -31,7 +31,10 @@ class Home extends BaseController
                 'lastPage' => $page['lastPage'],
                 'url' => 'field/' . $field . '/sort/' . $sort,
                 'sort' => $sort,
+                'saveStatus' => $_SESSION['saveStatus'] ?? false,
             ]);
+
+        unset($_SESSION['saveStatus']);
 
     }
 
